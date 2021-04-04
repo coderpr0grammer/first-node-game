@@ -1,0 +1,175 @@
+<html>
+  <head>
+    <title>A Multiplayer Game</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+    <style>
+        
+        * {
+            
+            box-sizing:border-box;
+            font-family: 'Open Sans', sans-serif;
+            
+        }
+        
+        body {
+            
+            text-align: center;
+            
+        }
+        
+        canvas {
+            width: 900px;
+            height: 550px;
+            border: 5px solid black;
+            float:left;
+        }
+        
+        #chatbox {
+            
+            float:left;
+            border: 5px solid black;
+            padding: 15px;
+            height: 550px;
+            max-height: 550px;
+            width: auto;
+            min-width: 260px;
+            width:260px;
+            position:relative;
+            overflow-y: scroll;
+            
+            
+        }
+        
+        #main-content {
+            
+            display:inline-block;
+            
+        }
+        
+        @media (max-width: 1197px) {
+            #chatbox {
+                
+                width: 900px;
+                height: auto;
+                min-height: 60px;
+/*                overflow-y: auto;*/
+                
+            }
+            
+            #chat-form {
+                
+                
+                
+            }
+            
+            #messages {
+                
+                position:absolute;
+                top:60px;
+                
+            }
+            
+            
+        }
+        
+        #send-button {
+            
+            background-color: #3D94F6;
+            color: white;
+            border: 1px solid #3D94F6;
+            transition: background-color 1s
+            outline:none;
+            
+            
+        }
+        #send-button:hover {
+            
+            background-color: #097af2;
+            cursor:pointer;
+            outline:none;
+            transition: background-color 1s;
+            
+            
+        }
+        
+        #send-button:active {
+            
+            background-color: #1881f2;
+            
+        }
+        
+        #chat-form {
+            
+            position:fixed; bottom: 60px;
+            
+        }
+        
+        #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages > li { padding: 0.5rem 1rem; }
+      #messages > li:nth-child(odd) { background: #efefef; }
+        
+    </style>
+    <script src="/socket.io/socket.io.js"></script>
+  </head>
+  <body>
+    <div id="main-content">
+        <canvas id="canvas"></canvas>
+
+        <div id="chatbox">
+            <ul id="messages"></ul>
+            
+
+            <form id="chat-form">
+
+                <input type="text" id="chat-message" name="chat-message" autocomplete="off">
+                <button type="submit" id="send-button">Send</button>
+
+            </form>
+
+        </div>
+    </div>
+  </body>
+  <script src="/static/game.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+    
+        
+    
+    </script>
+    <script>
+        
+        var messagesinchat = [];
+        var vwidth= Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+        
+        $(window).resize(function() {
+            
+            vwidth= Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+            
+            if (vwidth <= 1197) {
+            
+            messagesinchat = document.getElementById("chatbox").getElementsByTagName("li");
+            var numberofmessages = messagesinchat.length;
+                
+            document.getElementById("chatbox").style.height = numberofmessages * 60 + 60;
+            document.getElementById("chat-form").style.marginBottom = numberofmessages * 60-40;
+                
+            console.log(vwidth);
+            console.log(messagesinchat);
+            console.log(numberofmessages);
+            console.log("chatbox height: " + document.getElementById("chatbox").style.height)
+            
+        } else {
+            
+            document.getElementById("chatbox").style.height = "550px";
+            document.getElementById("chat-form").style.marginBottom = "15px";
+            
+        }
+            
+        });
+    
+        
+    
+    </script>
+    
+</html>
